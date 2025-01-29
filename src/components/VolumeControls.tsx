@@ -13,7 +13,7 @@ const VolumeControls: React.FC = () => {
   return (
     <div className="flex items-center gap-4 w-full">
       {/* Volume Icon */}
-      <Volume2 className="w-6 h-6 text-black" />
+      <Volume2 className="w-6 h-6 text-lightPurple" /> {/* Custom light purple color */}
 
       {/* Range Slider */}
       <input
@@ -22,12 +22,12 @@ const VolumeControls: React.FC = () => {
         max="100"
         value={volume}
         onChange={handleVolumeChange}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-black"
+        className="w-full h-2 bg-blackSlider rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-lightPurple"
         aria-label="Volume Control"
       />
 
-      {/* Volume Display (Optional) */}
-      <span className="text-sm text-gray-700">{volume}%</span>
+      {/* Volume Display */}
+      <span className="text-sm text-lightPurple font-coolFont">{volume}%</span> {/* Styled with custom font */}
     </div>
   );
 };

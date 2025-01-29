@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
+import placeholderImage from "../assets/placeholder.svg";
 
-// Define the props type
 interface CoverArtProps {
-  albumArtUrl: string | null; // Album artwork URL or null if not available
+  albumArtUrl: string | null;
 }
 
 const CoverArt: React.FC<CoverArtProps> = ({ albumArtUrl }) => {
   return (
     <div className="flex justify-center">
       <img
-        src={albumArtUrl || require('../assets/placeholder.svg')} // Use placeholder if no artwork is available
+        src={albumArtUrl || placeholderImage} // Use the placeholder image if albumArtUrl is not provided
         alt="Album Cover"
         className="rounded-lg shadow-md"
       />
