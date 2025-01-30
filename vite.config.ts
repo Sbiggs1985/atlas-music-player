@@ -9,4 +9,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"), // Add the alias for @
     },
   },
+  test: {
+    globals: true,  // Enables using `describe`, `it`, and `expect` without imports
+    environment: "jsdom", // Simulates a browser environment for testing
+    setupFiles: "./src/setupTests.ts", // Loads test setup
+    css: false, // Ignore CSS during tests
+  },
 });

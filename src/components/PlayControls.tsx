@@ -1,116 +1,72 @@
-import React, { useState } from "react";
+import React from "react";
 import { Play, Pause, Rewind, FastForward, Shuffle } from "lucide-react";
 
-// Define types for songs and playback speeds
-interface Song {
-  id: number;
-  title: string;
-  artist: string;
+// Define types for props
+interface PlayControlsProps {
+  isPlaying: boolean;
+  playbackSpeed: number;
+  isShuffle: boolean;
+  onPlayPause: () => void;
+  onChangeSpeed: () => void;
+  onPreviousSong: () => void;
+  onNextSong: () => void;
+  onToggleShuffle: () => void;
+  isBackDisabled: boolean;
+  isForwardDisabled: boolean;
 }
 
-const speedLevels: number[] = [0.5, 1, 2];
-
-const PlayControls: React.FC = () => {
-  const [isPlaying, setIsPlaying] = useState<boolean>(false); // Manage play/pause state
-  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1); // Manage playback speed
-  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0); // Manage the current song index
-  const [isShuffle, setIsShuffle] = useState<boolean>(false); // Manage shuffle state
-
-  const playlist: Song[] = [
-    { id: 1, title: "Song 1", artist: "Artist 1" },
-    { id: 2, title: "Song 2", artist: "Artist 2" },
-    { id: 3, title: "Song 3", artist: "Artist 3" },
-  ]; // Example playlist
-
-  // Toggle play/pause state
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
-
-  // Change playback speed
-  const changePlaybackSpeed = () => {
-    const currentIndex = speedLevels.indexOf(playbackSpeed);
-    const nextIndex = (currentIndex + 1) % speedLevels.length;
-    setPlaybackSpeed(speedLevels[nextIndex]);
-  };
-
-  // Go to the previous song
-  const goToPreviousSong = () => {
-    if (currentSongIndex > 0) {
-      setCurrentSongIndex(currentSongIndex - 1);
-    }
-  };
-
-  // Go to the next song
-  const goToNextSong = () => {
-    if (isShuffle) {
-      // Shuffle logic: Select a random song index, avoiding the current song
-      const randomIndex = () => {
-        let newIndex;
-        do {
-          newIndex = Math.floor(Math.random() * playlist.length);
-        } while (newIndex === currentSongIndex);
-        return newIndex;
-      };
-      setCurrentSongIndex(randomIndex());
-    } else if (currentSongIndex < playlist.length - 1) {
-      // Go to the next song if not the last song
-      setCurrentSongIndex(currentSongIndex + 1);
-    }
-  };
-
-  // Check if the back button should be disabled
-  const isBackButtonDisabled = currentSongIndex === 0;
-
-  // Check if the forward button should be disabled
-  const isForwardButtonDisabled =
-    !isShuffle && currentSongIndex === playlist.length - 1;
-
-  // Toggle shuffle state
-  const toggleShuffle = () => {
-    setIsShuffle(!isShuffle);
-  };
-
+const PlayControls: React.FC<PlayControlsProps> = ({
+  isPlaying,
+  playbackSpeed,
+  isShuffle,
+  onPlayPause,
+  onChangeSpeed,
+  onPreviousSong,
+  onNextSong,
+  onToggleShuffle,
+  isBackDisabled,
+  isForwardDisabled,
+}) => {
   return (
     <div className="flex justify-center items-center gap-8 mt-4">
       {/* Play Speed Button */}
       <button
-        className="text-gray-700 hover:text-black text-lg font-medium"
-        onClick={changePlaybackSpeed}
+        className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white text-lg font-medium"
+        onClick={onChangeSpeed}
+        aria-label={`Change playback speed to ${playbackSpeed}x`}
       >
         {playbackSpeed}x
       </button>
 
       {/* Back Button */}
       <button
-        className={`flex items-center justify-center text-gray-700 ${
-          isBackButtonDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-black"
+        className={`flex items-center justify-center text-gray-700 dark:text-gray-300 ${
+          isBackDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-black dark:hover:text-white"
         }`}
-        onClick={goToPreviousSong}
-        disabled={isBackButtonDisabled}
+        onClick={onPreviousSong}
+        disabled={isBackDisabled}
+        aria-label="Previous song"
       >
         <Rewind className="w-6 h-6" />
       </button>
 
       {/* Play/Pause Button */}
       <button
-        className="flex items-center justify-center text-gray-700 hover:text-black"
-        onClick={togglePlayPause}
+        className="flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
+        onClick={onPlayPause}
+        aria-label={isPlaying ? "Pause" : "Play"}
       >
-        {isPlaying ? (
-          <Pause className="w-6 h-6" aria-label="Pause" />
-        ) : (
-          <Play className="w-6 h-6" aria-label="Play" />
-        )}
+        {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
       </button>
 
       {/* Forward Button */}
       <button
-        className={`flex items-center justify-center text-gray-700 ${
-          isForwardButtonDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-black"
+        className={`flex items-center justify-center text-gray-700 dark:text-gray-300 ${
+          isForwardDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-black dark:hover:text-white"
         }`}
-        onClick={goToNextSong}
-        disabled={isForwardButtonDisabled}
+        onClick={onNextSong}
+        disabled={isForwardDisabled}
+        aria-label="Next song"
       >
         <FastForward className="w-6 h-6" />
       </button>
@@ -118,9 +74,10 @@ const PlayControls: React.FC = () => {
       {/* Shuffle Button */}
       <button
         className={`flex items-center justify-center ${
-          isShuffle ? "text-blue-500" : "text-gray-700 hover:text-black"
+          isShuffle ? "text-blue-500" : "text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
         }`}
-        onClick={toggleShuffle}
+        onClick={onToggleShuffle}
+        aria-label={isShuffle ? "Disable shuffle mode" : "Enable shuffle mode"}
       >
         <Shuffle className="w-6 h-6" />
       </button>

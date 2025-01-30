@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SongTitle Component > matches snapshot with a different title and artist 1`] = `
+<DocumentFragment>
+  <div
+    class="w-400"
+  >
+    <h2
+      class="text-xl text-black-900 font-bold"
+    >
+      Golden Haze
+    </h2>
+    <p
+      class="text-sm text-gray-600"
+    >
+      Velvet Waves
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SongTitle Component > matches snapshot with a title and artist 1`] = `
+<DocumentFragment>
+  <div
+    class="w-400"
+  >
+    <h2
+      class="text-xl text-black-900 font-bold"
+    >
+      Painted in Blue
+    </h2>
+    <p
+      class="text-sm text-gray-600"
+    >
+      Soul Canvas
+    </p>
+  </div>
+</DocumentFragment>
+`;

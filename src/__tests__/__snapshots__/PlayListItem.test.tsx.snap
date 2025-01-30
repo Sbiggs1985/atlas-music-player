@@ -1,0 +1,59 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PlayListItem Component > matches snapshot when not selected 1`] = `
+<DocumentFragment>
+  <div
+    aria-pressed="false"
+    class="flex justify-between items-center p-4 rounded-lg cursor-pointer hover:bg-gray-100"
+    role="button"
+    tabindex="0"
+  >
+    <div>
+      <p
+        class="text-lg font-bold"
+      >
+        Test Song
+      </p>
+      <p
+        class="text-sm text-gray-500"
+      >
+        Test Artist
+      </p>
+    </div>
+    <div
+      class="text-sm text-gray-500"
+    >
+      3:30
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PlayListItem Component > matches snapshot when selected 1`] = `
+<DocumentFragment>
+  <div
+    aria-pressed="true"
+    class="flex justify-between items-center p-4 rounded-lg cursor-pointer bg-blue-500 text-white"
+    role="button"
+    tabindex="0"
+  >
+    <div>
+      <p
+        class="text-lg font-bold"
+      >
+        Test Song
+      </p>
+      <p
+        class="text-sm text-gray-500"
+      >
+        Test Artist
+      </p>
+    </div>
+    <div
+      class="text-sm text-gray-500"
+    >
+      3:30
+    </div>
+  </div>
+</DocumentFragment>
+`;
